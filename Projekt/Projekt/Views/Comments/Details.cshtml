@@ -1,0 +1,34 @@
+﻿@model Projekt.Models.Comment
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.User.username)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.User.username)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.comment)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.comment)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.created)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.created)
+    </dd>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (Model.user_id == (int)Session["user_id"])
+        {
+            <a href="@Url.Action("Delete", "Comments", new { id = Model.comment_id })" class="btn btn-danger pull-right">DELETE</a>
+        }
+    }
+</dl>

@@ -1,0 +1,222 @@
+﻿/* -------- GENERAL -------- */
+
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Titillium-Regular.otf);
+}
+
+
+/* -------- ELEMENTS -------- */
+
+* {
+    font-family: titleFont;
+    box-sizing: border-box;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: white;
+    padding: 2em;
+}
+
+
+/* -------- HEADER/FOOTER -------- */
+
+#header {
+    position: relative;
+    background-color: rgb(66, 66, 66);
+    height: 20em;
+}
+
+#header,
+#content {
+    width: 100%;
+}
+
+#content {
+    height: 100%;
+}
+
+#footer {
+    position: absolute;
+    background-color: rgb(66, 66, 66);
+    width: 100%;
+    height: 5em;
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+}
+
+#profile_menu {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
+
+.profile_select {
+    cursor: pointer;
+    padding: 1em;
+    margin: -1em;
+    background-color: rgba(0, 0, 0, 0.30);
+}
+
+.dropdown-menu {
+    right: 0;
+    left: initial;
+}
+
+#stripes {
+    height: 100%;
+}
+
+#site_text {
+    color: white;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+#header:hover #site_text {
+    transition: all .5s;
+    text-decoration: underline;
+}
+
+/* -------- CLASSES -------- */
+
+.btn-primary {
+    background-color: #464646;
+    border-color: #464646;
+}
+
+.pagination a:hover,
+.btn-primary:hover,
+.btn-primary.active {
+    border-color: #464646;
+    background-color: white;
+    color: #464646;
+}
+
+.pagination .active > a {
+    background-color: #464646;
+    border-color: #464646;
+}
+
+.pagination .active > a:hover {
+    background-color: white;
+    color: #464646;
+}
+
+/* -------- POSTS INDEX -------- */
+
+#operations {
+    height: 3em;
+    width: 100%;
+
+}
+
+#operations .search {
+    max-width: 300px;
+}
+
+#show_posts .glyphicon-check {
+    display: none;
+}
+
+#show_posts.active .glyphicon-check {
+    display: initial;
+}
+
+#show_posts .glyphicon-unchecked {
+    display: initial;
+}
+
+#show_posts.active .glyphicon-unchecked {
+    display: none;
+}
+
+.posts {
+    margin: .5em -.5em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.post {
+    background-color: #464646;
+    margin: .5em;
+    color: white;
+    flex-basis: calc(20% - 1em);
+    min-width: 30em;
+}
+
+.post_content {
+    position: relative;
+    padding: 1em;
+}
+
+.post_hover {
+    color: white;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.50);
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.post_content:hover .post_hover {
+    transition: all .5s;
+    opacity: 1;
+}
+
+.post_title {
+    padding: .5em;
+    font-size: 2em;
+}
+
+.post_image {
+    margin: 1em -1em;
+}
+
+.post_image img {
+    width: 100%;
+}
+
+.post_description {
+    padding: 1em;
+    font-size: 1.2em;
+}
+
+.post_footer {
+    padding: 2em;
+    background-color: #707070;
+}
+
+/* -------- POSTS DETAILS -------- */
+
+.post_details_image {
+    max-width: 20em;
+}
+
+.post_details_image img {
+    width: 100%;
+}
