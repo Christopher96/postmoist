@@ -7,13 +7,22 @@
 }
 <form id="operations" class="form-inline">
     <span>Sorting: </span>
-    @{ 
-        string titleActive = ViewBag.SortTitle == "title_asc" ? " active" : "";
-        string createActive = ViewBag.SortCreate == "created_asc" ? " active" : "";
+    @{
+        string titleActive = ViewBag.Sort == "title_asc" ? "active" : "";
+        string createActive = ViewBag.Sort == "title_asc" ? "" : "active";
+        string titleAsc = ViewBag.SortTitle == "title_asc" ? "ascending" : "";
+        string createAsc = ViewBag.SortCreate == "created_asc" ? "ascending" : "";
     }
-    @Html.ActionLink("Title", "Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser }, new { @class = "btn btn-primary" + titleActive });
-    @Html.ActionLink("Created", "Index", new { sort = ViewBag.SortCreate, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser }, new { @class = "btn btn-primary" + createActive });
-
+    <a id="show_posts" class="btn btn-primary sort-btn @titleActive @titleAsc" href="@Url.Action("Title", "Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+        <span>Title</span>
+        <span class="glyphicon glyphicon-triangle-bottom"></span>
+        <span class="glyphicon glyphicon-triangle-top"></span>
+    </a>
+    <a id="show_posts" class="btn btn-primary sort-btn @createActive @createAsc" href="@Url.Action("Created", "Index", new { sort = ViewBag.SortCreate, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+        <span>Created</span>
+        <span class="glyphicon glyphicon-triangle-bottom"></span>
+        <span class="glyphicon glyphicon-triangle-top"></span>
+    </a>
     <span>Search: </span>
     <input class="search form-control" name="search" placeholder="Search..." value="@ViewBag.Filter" />
     <button class="btn btn-primary" type="submit">Search</button>

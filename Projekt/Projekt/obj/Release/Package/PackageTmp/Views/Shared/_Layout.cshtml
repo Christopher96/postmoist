@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <a href="@Url.Action("Index", "Posts")">
+        <header id="header">
+            <img id="stripes" src='~/images/stripes.png' alt="stripes" />
+            <div id="site_text"><span>postmoist</span></div>
+            
+            <div id="profile_menu" class="dropdown">
+                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <div class="profile_select">
+                        <img src="~/images/profile.png" alt="profile" />
+                    </div>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    @if (User.Identity.IsAuthenticated)
+    {
+                <li class="dropdown-header">Logged in as @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Profile", "Profile", "Users")</li>
+                <li role="separator" class="divider"></li>
+                <li><a href="@Url.Action("Logout", "Users")">Logout</a></li>
+}
+else
+{
+                <li class="dropdown-header">Not logged in</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Register", "Register", "Users")</li>
+                <li>@Html.ActionLink("Login", "Login", "Users")</li>
+}
+                </ul>
+            </div>
+        </header>
+    </a>
+    <div id="content" class="body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <footer id="footer">
+
+    </footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

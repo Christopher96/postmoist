@@ -20,7 +20,6 @@ html {
 
 body {
     background-color: white;
-    padding: 2em;
 }
 
 
@@ -39,6 +38,7 @@ body {
 
 #content {
     height: 100%;
+    padding: 2em;
 }
 
 #footer {
@@ -72,18 +72,23 @@ body {
 
 #stripes {
     height: 100%;
+    float: left;
 }
 
-#site_text {
+#site_logo {
+    top: 0;
+    position:absolute;
     color: white;
     font-size: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
+    display:flex;
+    align-content:center;
+    justify-content:center;
+}
+
+#site_logo img {
+    height: 100%;
 }
 
 #header:hover #site_text {
@@ -114,6 +119,22 @@ body {
 .pagination .active > a:hover {
     background-color: white;
     color: #464646;
+}
+
+.sort-btn .glyphicon {
+    display: none;
+}
+
+.sort-btn.active .glyphicon {
+    display: initial;
+}
+
+.sort-btn.ascending .glyphicon-triangle-top {
+    display: none;
+}
+
+.sort-btn .glyphicon-triangle-bottom {
+    display: initial;
 }
 
 /* -------- POSTS INDEX -------- */
