@@ -33,13 +33,14 @@ namespace Projekt.Controllers
                 page = 1;
             }
 
-            ViewBag.FilterSearch = filterSearch;
+            ViewBag.FilterSearch = search;
 
-            if (!string.IsNullOrEmpty(filterSearch))
+            if (!string.IsNullOrEmpty(search))
             {
                 posts = posts.Where(
-                     i => i.title.ToUpper().Contains(filterSearch.ToUpper()) ||
-                     i.description.ToUpper().Contains(filterSearch.ToUpper())
+                     p => p.title.ToUpper().Contains(search.ToUpper()) ||
+                     p.description.ToUpper().Contains(search.ToUpper()) ||
+                     p.User.username.ToUpper().Contains(search.ToUpper())
                 );
             }
 

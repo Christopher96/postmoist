@@ -10,7 +10,6 @@
 
 * {
     font-family: titleFont;
-    box-sizing: border-box;
 }
 
 html {
@@ -22,6 +21,9 @@ body {
     background-color: white;
 }
 
+hr {
+    margin-bottom: 21px;
+}
 
 /* -------- HEADER/FOOTER -------- */
 
@@ -39,16 +41,6 @@ body {
 #content {
     height: 100%;
     padding: 2em;
-}
-
-#footer {
-    position: absolute;
-    background-color: rgb(66, 66, 66);
-    width: 100%;
-    height: 5em;
-    overflow: hidden;
-    left: 0;
-    bottom: 0;
 }
 
 #profile_menu {
@@ -121,32 +113,32 @@ body {
     color: #464646;
 }
 
-.sort-btn .glyphicon {
+.sort-btn.ascending .glyphicon-chevron-down,
+.sort-btn .glyphicon-chevron-up {
     display: none;
 }
 
-.sort-btn.active .glyphicon {
-    display: initial;
-}
-
-.sort-btn.ascending .glyphicon-triangle-top {
-    display: none;
-}
-
-.sort-btn .glyphicon-triangle-bottom {
+.sort-btn .glyphicon-chevron-down,
+.sort-btn.ascending .glyphicon-chevron-up {
     display: initial;
 }
 
 /* -------- POSTS INDEX -------- */
-
 #operations {
     height: 3em;
     width: 100%;
+}
 
+#operations .sort-btn:last-of-type {
+    margin-right: 2em;
 }
 
 #operations .search {
     max-width: 300px;
+}
+
+#operation .control-label {
+    font-size: 2em;
 }
 
 #show_posts .glyphicon-check {

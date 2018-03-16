@@ -45,14 +45,11 @@
     </a>
     <div id="content" class="body-content">
         @RenderBody()
-        <hr />
+        <hr>
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    <footer id="footer">
-
-    </footer>
     @RenderSection("scripts", required: false)
 </body>
 </html>

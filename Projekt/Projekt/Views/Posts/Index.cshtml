@@ -6,37 +6,40 @@
     ViewBag.Title = "Index";
 }
 <form id="operations" class="form-inline">
-    <span>Sorting: </span>
+    <label class="control-label">Sorting: </label>
     @{
-        string titleActive = ViewBag.Sort == "title_asc" ? "active" : "";
-        string createActive = ViewBag.Sort == "title_asc" ? "" : "active";
-        string titleAsc = ViewBag.SortTitle == "title_asc" ? "ascending" : "";
-        string createAsc = ViewBag.SortCreate == "created_asc" ? "ascending" : "";
+        string titleHide = (ViewBag.Sort != "title_asc" && ViewBag.Sort != null) ? "hidden" : "";
+        string createHide = (ViewBag.Sort != "created_asc" && ViewBag.Sort != "created_desc") ? "hidden" : "";
+        string titleAsc = ViewBag.Sort == "title_asc" ? "ascending" : "";
+        string createAsc = ViewBag.Sort == "created_asc" ? "ascending" : "";
     }
-    <a id="show_posts" class="btn btn-primary sort-btn @titleActive @titleAsc" href="@Url.Action("Title", "Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
-        <span>Title</span>
-        <span class="glyphicon glyphicon-triangle-bottom"></span>
-        <span class="glyphicon glyphicon-triangle-top"></span>
-    </a>
-    <a id="show_posts" class="btn btn-primary sort-btn @createActive @createAsc" href="@Url.Action("Created", "Index", new { sort = ViewBag.SortCreate, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
-        <span>Created</span>
-        <span class="glyphicon glyphicon-triangle-bottom"></span>
-        <span class="glyphicon glyphicon-triangle-top"></span>
-    </a>
-    <span>Search: </span>
-    <input class="search form-control" name="search" placeholder="Search..." value="@ViewBag.Filter" />
+        <a class="btn btn-primary sort-btn @titleAsc" href="@Url.Action("Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+            <span>Title </span>
+            <span class="glyphicon glyphicon-chevron-down @titleHide"></span>
+            <span class="glyphicon glyphicon-chevron-up @titleHide"></span>
+        </a>
+        <a class="btn btn-primary sort-btn @createAsc" href="@Url.Action("Index", new { sort = ViewBag.SortCreate, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+            <span>Created </span>
+            <span class="glyphicon glyphicon-chevron-down @createHide"></span>
+            <span class="glyphicon glyphicon-chevron-up @createHide"></span>
+        </a>
+    <label class="control-label">Search: </label>
+    <input class="search form-control" name="search" placeholder="Search..." value="@ViewBag.FilterSearch" />
     <button class="btn btn-primary" type="submit">Search</button>
-
-    @if (User.Identity.IsAuthenticated)
+    <div class="pull-right">
+        @if (User.Identity.IsAuthenticated)
     {
         string userActive = ViewBag.FilterUser ? "active" : "";
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary pull-right" })
-        <a id="show_posts" class="btn btn-primary pull-right @userActive" href="@Url.Action("Index", new { sort = ViewBag.Sort, filterSearch = ViewBag.FilterSearch, filterUser = !ViewBag.FilterUser })">
+        <a id="show_posts" class="btn btn-primary @userActive" href="@Url.Action("Index", new { sort = ViewBag.Sort, filterSearch = ViewBag.FilterSearch, filterUser = !ViewBag.FilterUser })">
             <span>Show only my posts </span>
             <span class="glyphicon glyphicon-check"></span>
             <span class="glyphicon glyphicon-unchecked"></span>
         </a>
-    }
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+
+}
+    </div>
+   
 
 </form>
 <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -56,6 +59,7 @@
         </div>
     </div>
 </div>
+<hr/>
 <div class="posts">
     @foreach (var item in Model)
     {
