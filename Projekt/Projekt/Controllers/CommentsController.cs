@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using Projekt.Models;
 
 namespace Projekt.Controllers
@@ -14,18 +15,15 @@ namespace Projekt.Controllers
     {
         private ProjectDBEntities db = new ProjectDBEntities();
 
-        public ActionResult Details(int? id)
+        public ActionResult Index(int post_id, int? page)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(comment);
+            var dbComments = db.Posts.Include(c => c.User).AsEnumerable().Where(c => c.post_id == post_id).OrderBy(c => c.created);
+            var comments = from c in dbComments select c;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(comments.ToPagedList(pageNumber, pageSize));
         }
 
         // POST: Comments/Create

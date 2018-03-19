@@ -319,8 +319,8 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

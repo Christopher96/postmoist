@@ -60,31 +60,31 @@
     </div>
 </div>
 <hr/>
-<div class="posts">
+<div class="post_thumbs">
     @foreach (var item in Model)
     {
-        <div class="post">
-            <div class="post_content">
+        <div class="post_thumb">
+            <div class="post_thumb_content">
                 <a href="@Url.Action("Details", new { id = item.post_id })">
-                    <div class="post_hover">
+                    <div class="post_thumb_hover">
                         <span>READ</span>
                     </div>
                 </a>
-                <div class="post_title">
+                <div class="post_thumb_title">
                     <span>
                         @Html.DisplayFor(modelItem => item.title)
                     </span>
                 </div>
-                <div class="post_image">
+                <div class="post_thumb_image">
                     @Html.Image(item.Image.image)
                 </div>
-                <div class="post_description">
+                <div class="post_thumb_description">
                     <span>
                         @Html.DisplayFor(modelItem => item.description)
                     </span>
                 </div>
             </div>
-            <div class="post_footer">
+            <div class="post_thumb_footer">
                 <div class="pull-left">
                     <span>@Html.DisplayFor(modelItem => item.User.username)</span><br />
                     <span>@Html.DisplayFor(modelItem => item.created)</span>
@@ -93,7 +93,7 @@
     {
         if (item.User.user_id == (int)Session["user_id"])
         {
-            <a id="post_delete" data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger pull-right">DELETE</a>
+            <a data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger pull-right post_thumb_delete">DELETE</a>
 
 }
 }
@@ -105,8 +105,13 @@
 </div>
 
 <script>
-    $("#post_delete").click(function () {
-        $("#post_modal_delete").attr("href", $("#post_modal_delete").attr("href") + "/" + $(this).attr("data-id"));
+    $(document).ready(function) {
+        var modal_url = $("#post_modal_delete").attr("href");
+        $(".post_thumb_delete").each(function () {
+            $(this).click(function () {
+                $("#post_modal_delete").attr("href", modal_url + "/" + $(this).attr("data-id"));
+            });
+        })
     });
 </script>
 

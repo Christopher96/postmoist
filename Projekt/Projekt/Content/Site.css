@@ -1,16 +1,23 @@
 ﻿/* -------- GENERAL -------- */
 
 @font-face {
-    font-family: titleFont;
+    font-family: breadFont;
     src: url(../fonts/Titillium-Regular.otf);
+}
+
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Graceland.ttf);
 }
 
 
 /* -------- ELEMENTS -------- */
 
 * {
-    font-family: titleFont;
+    font-family: breadFont;
+    box-sizing: border-box;
 }
+
 
 html {
     position: relative;
@@ -90,6 +97,12 @@ hr {
 
 /* -------- CLASSES -------- */
 
+
+.title {
+    font-family: titleFont;
+    font-size: 3em;
+}
+
 .btn-primary {
     background-color: #464646;
     border-color: #464646;
@@ -123,7 +136,21 @@ hr {
     display: initial;
 }
 
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
 /* -------- POSTS INDEX -------- */
+
 #operations {
     height: 3em;
     width: 100%;
@@ -157,7 +184,9 @@ hr {
     display: none;
 }
 
-.posts {
+
+
+.post_thumbs {
     margin: .5em -.5em;
     display: flex;
     flex-direction: row;
@@ -167,7 +196,7 @@ hr {
     align-content: flex-start;
 }
 
-.post {
+.post_thumb {
     background-color: #464646;
     margin: .5em;
     color: white;
@@ -175,12 +204,12 @@ hr {
     min-width: 30em;
 }
 
-.post_content {
+.post_thumb_content {
     position: relative;
     padding: 1em;
 }
 
-.post_hover {
+.post_thumb_hover {
     color: white;
     font-size: 2em;
     display: flex;
@@ -196,40 +225,56 @@ hr {
     left: 0;
 }
 
-.post_content:hover .post_hover {
+.post_thumb_content:hover .post_thumb_hover {
     transition: all .5s;
     opacity: 1;
 }
 
-.post_title {
+.post_thumb_title {
     padding: .5em;
     font-size: 2em;
 }
 
-.post_image {
+.post_thumb_image {
     margin: 1em -1em;
 }
 
-.post_image img {
+.post_thumb_image img {
     width: 100%;
 }
 
-.post_description {
+.post_thumb_description {
     padding: 1em;
     font-size: 1.2em;
 }
 
-.post_footer {
+.post_thumb_footer {
     padding: 2em;
     background-color: #707070;
 }
 
 /* -------- POSTS DETAILS -------- */
 
-.post_details_image {
-    max-width: 20em;
-}
 
 .post_details_image img {
     width: 100%;
+}
+
+.post_details_text {
+    position: relative;
+}
+
+.post_details_description {
+    font-size: 2em;
+}
+
+.post_details_footer {
+    font-style: italic;
+    font-size: 1.5em;
+    position: absolute;
+    bottom: 0;
+}
+
+.post_detail {
+    margin-bottom: 10em;
 }

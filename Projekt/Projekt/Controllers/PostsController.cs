@@ -78,6 +78,7 @@ namespace Projekt.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
+
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
@@ -93,6 +94,11 @@ namespace Projekt.Controllers
             {
                 return HttpNotFound();
             }
+
+            int pageSize = 5;
+            int pageNumber = 1;
+            ViewBag.Comments = post.Comments.ToPagedList(pageNumber, pageSize);
+
             return View(post);
         }
 

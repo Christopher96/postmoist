@@ -2,64 +2,38 @@
 @using HtmlExtensions
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.title;
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Post</h4>
+<div class="post_detail">
+    <span class="title">@Html.DisplayFor(model => model.title)</span>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.created)
-        </dd>
-
-        <dt>
-            Created by
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.username)
-        </dd>
-
-    </dl>
-    <div class="post_details_image">
-        @Html.Image(Model.Image.image)
+    <div class="post_details_content row">
+        <div class="post_details_image col-md-2">
+            @Html.Image(Model.Image.image)
+        </div>
+        <div class="post_details_text col-md-10 row">
+            <div class="post_details_description">
+                <span>@Html.DisplayFor(model => model.description)</span>
+            </div>
+            <div class="post_details_footer">
+                <span>@Html.DisplayFor(model => model.User.username)&#09;@Html.DisplayFor(model => model.created)</span>
+            </div>
+        </div>
     </div>
-    <hr />
-    <h2>Comments</h2>
-    @if (User.Identity.IsAuthenticated)
-    {
-        @Html.Partial("~/Views/Comments/Create.cshtml", new Projekt.Models.Comment { post_id = Model.post_id })
-    }
-    <hr />
+    <div class="clearfix"></div>
+</div>
+
+<div class="comments">
+    <span class="title">Comments</span>
     @foreach (var comment in Model.Comments)
     {
         @Html.Partial("~/Views/Comments/Details.cshtml", comment)
     }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Comments/Create.cshtml", new Projekt.Models.Comment { post_id = Model.post_id })
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
