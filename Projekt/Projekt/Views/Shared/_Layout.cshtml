@@ -29,6 +29,7 @@
                 <li class="dropdown-header">Logged in as @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</li>
                 <li role="separator" class="divider"></li>
                 <li><a href="@Url.Action("Index", "Users")">Users</a></li>
+                <li><a href="@Url.Action("Index", "Roles")">Roles</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="@Url.Action("Logout", "Users")">Logout</a></li>
 }

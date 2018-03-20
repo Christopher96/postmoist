@@ -21,24 +21,22 @@ namespace Projekt.Models
             this.Comments = new HashSet<Comment>();
             this.Posts = new HashSet<Post>();
         }
-
+    
         public int user_id { get; set; }
+        public Nullable<int> role_id { get; set; }
 
         [Display(Name = "Username")]
         [Required(ErrorMessage = "Username is required")]
         public string username { get; set; }
-
         public string password_hash { get; set; }
-
-        [Display(Name = "Role")]
-        public string role { get; set; }
 
         [Display(Name = "Created")]
         public System.DateTime created { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

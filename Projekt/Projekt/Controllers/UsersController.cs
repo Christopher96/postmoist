@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,17 +10,12 @@ using System.Web.Security;
 using PasswordSecurity;
 using Projekt.Models;
 
-namespace Projekt.Controllers
+namespace Projekt.Views
 {
     public class UsersController : Controller
     {
         private ProjectDBEntities db = new ProjectDBEntities();
 
-        // GET: Users
-        public ActionResult Index()
-        {
-            return View(db.Users.ToList());
-        }
 
         public ActionResult Login()
         {
@@ -38,7 +31,7 @@ namespace Projekt.Controllers
                 var dbUser = db.Users.SingleOrDefault(u => u.username.Equals(user.username));
                 if (dbUser != null)
                 {
-                    if(PasswordStorage.VerifyPassword(user.password, dbUser.password_hash))
+                    if (PasswordStorage.VerifyPassword(user.password, dbUser.password_hash))
                     {
                         Session["user_id"] = dbUser.user_id;
                         FormsAuthentication.SetAuthCookie(dbUser.username, false);
@@ -48,7 +41,6 @@ namespace Projekt.Controllers
 
                 ModelState.AddModelError(String.Empty, "Invalid username or password.");
             }
-            Debug.WriteLine(user.username + " " + user.password);
 
             return View(user);
         }
@@ -70,7 +62,6 @@ namespace Projekt.Controllers
                     User newUser = new User();
                     newUser.username = user.username;
                     newUser.password_hash = PasswordStorage.CreateHash(user.password);
-                    newUser.role = "Normal";
                     newUser.created = DateTime.Now;
                     db.Users.Add(newUser);
                     db.SaveChanges();
@@ -88,6 +79,14 @@ namespace Projekt.Controllers
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+
+
+        // GET: Users
+        public ActionResult Index()
+        {
+            var users = db.Users.Include(u => u.Role);
+            return View(users.ToList());
         }
 
         // GET: Users/Details/5
@@ -108,26 +107,37 @@ namespace Projekt.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.role_id = new SelectList(db.Roles, "role_id", "role");
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "user_id,username,password_hash,role,created")] User user)
+        public ActionResult Create([Bind(Include = "username,password,confirm_password,role_id")] UserRegister user)
         {
+            ViewBag.role_id = new SelectList(db.Roles, "role_id", "role");
+
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var dbUser = db.Users.SingleOrDefault(u => u.username.Equals(user.username));
+                if (dbUser == null)
+                {
+                    User newUser = new User();
+                    newUser.username = user.username;
+                    newUser.password_hash = PasswordStorage.CreateHash(user.password);
+                    newUser.role_id = user.role_id;
+                    newUser.created = DateTime.Now;
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+
+                    return RedirectToRoute(new { controller = "Users", action = "Index" });
+                }
+
+                ModelState.AddModelError(String.Empty, "A user with this username already exists.");
             }
-
-            return View(user);
+            return View();
         }
-
+  
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -140,6 +150,7 @@ namespace Projekt.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.role_id = new SelectList(db.Roles, "role_id", "role", user.role_id);
             return View(user);
         }
 
@@ -148,7 +159,7 @@ namespace Projekt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "user_id,username,password_hash,role,created")] User user)
+        public ActionResult Edit([Bind(Include = "user_id,role_id,username,password_hash,created")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -156,6 +167,7 @@ namespace Projekt.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.role_id = new SelectList(db.Roles, "role_id", "role", user.role_id);
             return View(user);
         }
 

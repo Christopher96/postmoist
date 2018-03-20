@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "Register";
 }
-<span class="large">Register an account</span>
+<span class="large title">Register</span>
 <hr/>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
     <span class="control-label">Username</span>
     @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })<br />
@@ -21,5 +20,4 @@
     @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })<br />
     <input type="submit" value="Register" class="btn btn-default" /><br />
     @Html.ValidationMessage(String.Empty, new { @class = "text-danger" })
-</div>
 }

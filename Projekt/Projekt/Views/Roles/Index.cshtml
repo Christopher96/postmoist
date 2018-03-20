@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Projekt.Models.Role>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<table class="table">
+    <tr>
+        <td><span class="large title">Roles</span></td>
+        <td>@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })</td>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.role)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.role_id }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+
+</table>

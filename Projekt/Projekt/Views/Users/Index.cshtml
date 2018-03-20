@@ -4,42 +4,42 @@
     ViewBag.Title = "Index";
 }
 
-<span class="large title">Users</span>
-<hr/>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
+    <tr>
+        <td colspan="3"><span class="large title">Users</span></td>
+        <td>@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })</td>
+    </tr>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.username)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.role)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.created)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role.role)
+        </th>
+        <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.role)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.created)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id=item.user_id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.user_id }, new { @class = "btn btn-primary" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.role)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.user_id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Details", "Details", new { id = item.user_id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.user_id }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
 
 </table>

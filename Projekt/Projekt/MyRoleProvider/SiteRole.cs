@@ -40,7 +40,7 @@ namespace Projekt.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            string data = db.Users.SingleOrDefault(u => u.username.Equals(username)).role;
+            string data = db.Users.SingleOrDefault(u => u.username.Equals(username)).Role.role;
             string[] result = { data };
             return result;
         }

@@ -12,15 +12,18 @@ namespace Projekt.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Role
     {
-        public int comment_id { get; set; }
-        public int post_id { get; set; }
-        public int user_id { get; set; }
-        public string comment { get; set; }
-        public System.DateTime created { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.Users = new HashSet<User>();
+        }
     
-        public virtual Post Post { get; set; }
-        public virtual User User { get; set; }
+        public int role_id { get; set; }
+        public string role { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
