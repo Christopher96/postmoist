@@ -24,11 +24,16 @@ namespace Projekt.Models
 
         public int user_id { get; set; }
 
+        [Display(Name = "Username")]
         [Required(ErrorMessage = "Username is required")]
         public string username { get; set; }
 
         public string password_hash { get; set; }
+
+        [Display(Name = "Role")]
         public string role { get; set; }
+
+        [Display(Name = "Created")]
         public System.DateTime created { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

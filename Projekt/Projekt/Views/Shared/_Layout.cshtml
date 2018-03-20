@@ -25,19 +25,19 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     @if (User.Identity.IsAuthenticated)
-            {
+    {
                 <li class="dropdown-header">Logged in as @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</li>
                 <li role="separator" class="divider"></li>
-                <li>@Html.ActionLink("Profile", "Profile", "Users")</li>
+                <li><a href="@Url.Action("Index", "Users")">Users</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="@Url.Action("Logout", "Users")">Logout</a></li>
-    }
-    else
-    {
-        <li class="dropdown-header">Not logged in</li>
-        <li role="separator" class="divider"></li>
-        <li>@Html.ActionLink("Register", "Register", "Users")</li>
-        <li>@Html.ActionLink("Login", "Login", "Users")</li>
+}
+else
+{
+                <li class="dropdown-header">Not logged in</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Register", "Register", "Users")</li>
+                <li>@Html.ActionLink("Login", "Login", "Users")</li>
 }
                 </ul>
             </div>

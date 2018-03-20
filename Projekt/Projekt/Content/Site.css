@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: titleFont;
-    src: url(../fonts/Graceland.ttf);
+    src: url(../fonts/Lobster.otf);
 }
 
 
@@ -19,6 +19,12 @@
 }
 
 
+input,
+button,
+a {
+    font-family: breadFont;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -29,7 +35,38 @@ body {
 }
 
 hr {
-    margin-bottom: 21px;
+    margin-bottom: 24px;
+}
+
+input[type=submit] {
+    font-size: 1.2em;
+    padding: .5em 2em;
+}
+
+form:not(#operations) input[type=text],
+form input[type=password],
+form input[type=file],
+form textarea {
+    margin-top: 1em;
+    padding: 1em !important;
+    height: auto !important;
+}
+
+form:not(#operations),
+table {
+    max-width: 50em;
+}
+
+table {
+    font-size: 1.2em;
+}
+
+table td:last-child {
+    text-align: right;
+}
+
+textarea {
+    height: 10em !important;
 }
 
 /* -------- HEADER/FOOTER -------- */
@@ -98,9 +135,31 @@ hr {
 /* -------- CLASSES -------- */
 
 
+.large {
+    font-size: 3em;
+}
+
+.medium {
+    font-size: 2em;
+}
+
+.small {
+    font-size: 1.5em;
+}
+
 .title {
     font-family: titleFont;
-    font-size: 3em;
+}
+
+.control-label {
+    font-size: 1.3em;
+}
+
+.text-danger {
+    font-size: 1.2em;
+    display: inline-block;
+    padding-top: .5em;
+    padding-bottom: 2em;
 }
 
 .btn-primary {
@@ -266,10 +325,11 @@ hr {
 
 .post_details_description {
     font-size: 2em;
+    padding-bottom: 1em;
 }
 
 .post_details_footer {
-    font-style: italic;
+    width: 100%;
     font-size: 1.5em;
     position: absolute;
     bottom: 0;
@@ -278,3 +338,26 @@ hr {
 .post_detail {
     margin-bottom: 10em;
 }
+
+/* -------- COMMENTS -------- */
+
+.comment_description {
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.comment_footer {
+    font-size: 1.2em;
+}
+
+.comment {
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+.comments .comment:last-of-type {
+    border-bottom: 0;
+}
+
+

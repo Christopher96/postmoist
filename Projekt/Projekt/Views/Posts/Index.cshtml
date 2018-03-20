@@ -79,7 +79,7 @@
                     @Html.Image(item.Image.image)
                 </div>
                 <div class="post_thumb_description">
-                    <span>
+                    <span>  
                         @Html.DisplayFor(modelItem => item.description)
                     </span>
                 </div>
@@ -94,7 +94,6 @@
         if (item.User.user_id == (int)Session["user_id"])
         {
             <a data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger pull-right post_thumb_delete">DELETE</a>
-
 }
 }
                 <div class="clearfix"></div>
@@ -105,7 +104,7 @@
 </div>
 
 <script>
-    $(document).ready(function) {
+    $(document).ready(function() {
         var modal_url = $("#post_modal_delete").attr("href");
         $(".post_thumb_delete").each(function () {
             $(this).click(function () {

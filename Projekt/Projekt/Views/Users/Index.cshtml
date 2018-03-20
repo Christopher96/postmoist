@@ -4,8 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<span class="large title">Users</span>
+<hr/>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -13,9 +13,6 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.password_hash)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.role)
@@ -32,18 +29,15 @@
             @Html.DisplayFor(modelItem => item.username)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.password_hash)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.role)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.created)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.user_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.user_id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Details", "Details", new { id=item.user_id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.user_id }, new { @class = "btn btn-primary" })
         </td>
     </tr>
 }

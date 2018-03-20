@@ -26,10 +26,10 @@ namespace Projekt.Models
         public int user_id { get; set; }
         public int image_id { get; set; }
 
-        [Required(ErrorMessage = "Title is required"), StringLength(10, MinimumLength = 2, ErrorMessage = "The title must have between 2 and 10 characters.")]
+        [Required(ErrorMessage = "Title is required"), StringLength(20, MinimumLength = 1, ErrorMessage = "The title must have between 1 and 20 characters.")]
         public string title { get; set; }
 
-        [Required(ErrorMessage = "Description is required"), StringLength(100, MinimumLength = 10, ErrorMessage = "The description must be between 10 and 100 characters.")]
+        [Required(ErrorMessage = "Description is required"), StringLength(50, MinimumLength = 10, ErrorMessage = "The description must be between 10 and 50 characters.")]
         public string description { get; set; }
 
         public System.DateTime created { get; set; }
