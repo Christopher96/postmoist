@@ -16,6 +16,12 @@ namespace Projekt.Views
     {
         private ProjectDBEntities db = new ProjectDBEntities();
 
+        // GET: Users
+        public ActionResult Index()
+        {
+            var users = db.Users.Include(u => u.Role);
+            return View(users.ToList());
+        }
 
         public ActionResult Login()
         {
@@ -34,6 +40,7 @@ namespace Projekt.Views
                     if (PasswordStorage.VerifyPassword(user.password, dbUser.password_hash))
                     {
                         Session["user_id"] = dbUser.user_id;
+                        Session["role"] = dbUser.Role.role;
                         FormsAuthentication.SetAuthCookie(dbUser.username, false);
                         return RedirectToRoute(new { controller = "Posts", action = "Index" });
                     }
@@ -62,6 +69,7 @@ namespace Projekt.Views
                     User newUser = new User();
                     newUser.username = user.username;
                     newUser.password_hash = PasswordStorage.CreateHash(user.password);
+                    newUser.role_id = 2;
                     newUser.created = DateTime.Now;
                     db.Users.Add(newUser);
                     db.SaveChanges();
@@ -74,6 +82,7 @@ namespace Projekt.Views
             return View(user);
         }
 
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -81,13 +90,6 @@ namespace Projekt.Views
             return RedirectToAction("Login");
         }
 
-
-        // GET: Users
-        public ActionResult Index()
-        {
-            var users = db.Users.Include(u => u.Role);
-            return View(users.ToList());
-        }
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
@@ -105,6 +107,7 @@ namespace Projekt.Views
         }
 
         // GET: Users/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.role_id = new SelectList(db.Roles, "role_id", "role");
@@ -113,6 +116,7 @@ namespace Projekt.Views
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "username,password,confirm_password,role_id")] UserRegister user)
         {
             ViewBag.role_id = new SelectList(db.Roles, "role_id", "role");
@@ -137,8 +141,9 @@ namespace Projekt.Views
             }
             return View();
         }
-  
+
         // GET: Users/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -159,7 +164,8 @@ namespace Projekt.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "user_id,role_id,username,password_hash,created")] User user)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
@@ -171,27 +177,17 @@ namespace Projekt.Views
             return View(user);
         }
 
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
         // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete(int id)
         {
             User user = db.Users.Find(id);
+            db.Comments.RemoveRange(user.Comments);
+            foreach(Post post in user.Posts)
+            {
+                db.Comments.RemoveRange(post.Comments);
+            }
+            db.Posts.RemoveRange(user.Posts);
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -28,15 +28,18 @@
     {
         if (Model.user_id == (int)Session["user_id"])
         {
-            <a id="post_details_delete" data-toggle="modal" data-target="#delete_modal" data-id="@Model.post_id" class="btn btn-danger pull-right ">DELETE</a>
+    <div class="pull-right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }, new { @class = "btn btn-primary" })
+        <a id="post_details_delete" data-toggle="modal" data-target="#delete_modal" data-id="@Model.post_id" class="btn btn-danger">DELETE</a>
+    </div>
         }
     }
     <hr />
     <div class="post_details_content row">
-        <div class="post_details_image col-md-2">
+        <div class="post_details_image col-md-3">
             @Html.Image(Model.Image.image)
         </div>
-        <div class="post_details_text col-md-10 row">
+        <div class="post_details_text col-md-9 row">
             <div class="post_details_description">
                 <span>@Html.DisplayFor(model => model.description)</span>
             </div>

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<span class="large">Create a new post</span>
+<span class="large title">Create a new post</span>
 <hr />
 
 @using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,9 +13,9 @@
 <div class="form-horizontal">
     <span class="control-label">Title</span>
     @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })<br/>
+    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })<br />
     <span class="control-label">Description</span>
-    <textarea class="form-control" name="description"></textarea>
+    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })<br />
     <span class="control-label">Post Image</span>
     <input type="file" class="form-control" name="ImageData" />

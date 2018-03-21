@@ -28,6 +28,7 @@ namespace Projekt.Models
         [Required(ErrorMessage = "Title is required"), StringLength(20, MinimumLength = 1, ErrorMessage = "The title must have between 1 and 20 characters.")]
         public string title { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Description is required"), StringLength(50, MinimumLength = 10, ErrorMessage = "The description must be between 10 and 50 characters.")]
         public string description { get; set; }
 

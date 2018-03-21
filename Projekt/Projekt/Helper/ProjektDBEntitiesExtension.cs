@@ -29,7 +29,7 @@ namespace Projekt.Models
                     }
                 }
 
-                throw dbEx;
+                return 0;
             }
         }
     }

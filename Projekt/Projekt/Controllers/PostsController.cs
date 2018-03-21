@@ -19,7 +19,7 @@ namespace Projekt.Controllers
         private ProjectDBEntities db = new ProjectDBEntities();
 
         // GET: Posts
-        public ActionResult Index(string sort, string search, string filterSearch, int? page, bool filterUser = false)
+        public ActionResult Index(string search, string filterSearch, int? page, bool filterUser = false, string sort = "created_desc")
         {
             var dbPosts = db.Posts.Include(p => p.Image).Include(p => p.User).AsEnumerable().OrderBy(p => p.title, StringComparer.CurrentCulture);
             var posts = from m in dbPosts select m;
@@ -49,35 +49,34 @@ namespace Projekt.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     posts = posts.Where(
-                        i => i.user_id == (int)Session["user_id"]
+                        p => p.user_id == (int)Session["user_id"]
                     );
                 }
             }
 
             ViewBag.FilterUser = filterUser;
-            ViewBag.SortTitle = string.IsNullOrEmpty(sort) ? "title_asc" : "";
+            ViewBag.SortTitle = sort == "title_desc" ? "title_asc" : "title_desc";
             ViewBag.SortCreate = sort == "created_desc" ? "created_asc" : "created_desc";
             ViewBag.Sort = sort;
 
             switch (sort)
             {
                 case "title_desc":
-                    posts = posts.OrderByDescending(m => m.title);
+                    posts = posts.OrderByDescending(p => p.title);
+                    break;
+                case "title_asc":
+                    posts = posts.OrderBy(p => p.title);
                     break;
                 case "created_desc":
-                    posts = posts.OrderByDescending(m => m.created);
+                    posts = posts.OrderByDescending(p => p.created);
                     break;
                 case "created_asc":
-                    posts = posts.OrderBy(m => m.created);
-                    break;
-                default:
-                    posts = posts.OrderBy(m => m.title);
+                    posts = posts.OrderBy(p => p.created);
                     break;
             }
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-
 
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
@@ -94,16 +93,12 @@ namespace Projekt.Controllers
             {
                 return HttpNotFound();
             }
-
-            int pageSize = 5;
-            int pageNumber = 1;
-            ViewBag.Comments = post.Comments.ToPagedList(pageNumber, pageSize);
-
+            
             return View(post);
         }
 
         // GET: Posts/Create
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Create()
         {
             return View();
@@ -115,7 +110,7 @@ namespace Projekt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Create(Post post, HttpPostedFileBase ImageData)
         {
             Image newImg = new Image();
@@ -180,7 +175,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Posts/Edit/5
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -192,8 +187,6 @@ namespace Projekt.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.image_id = new SelectList(db.Images, "image_id", "title", post.image_id);
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "username", post.user_id);
             return View(post);
         }
 
@@ -202,22 +195,20 @@ namespace Projekt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Normal")]
-        public ActionResult Edit([Bind(Include = "post_id,user_id,image_id,title,description,created")] Post post)
+        [Authorize(Roles = "Admin, Normal")]
+        public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = post.post_id });
             }
-            ViewBag.image_id = new SelectList(db.Images, "image_id", "title", post.image_id);
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "username", post.user_id);
             return View(post);
         }
 
         // GET: Posts/Delete/5
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Delete(int? id)
         {
             Post post = db.Posts.Find(id);

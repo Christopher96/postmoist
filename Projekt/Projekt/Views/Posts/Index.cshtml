@@ -8,10 +8,10 @@
 <form id="operations" class="form-inline">
     <label class="control-label">Sorting: </label>
     @{
-        string titleHide = (ViewBag.Sort != "title_asc" && ViewBag.Sort != null) ? "hidden" : "";
+        string titleHide = (ViewBag.Sort != "title_asc" && ViewBag.Sort != "title_desc") ? "hidden" : "";
         string createHide = (ViewBag.Sort != "created_asc" && ViewBag.Sort != "created_desc") ? "hidden" : "";
-        string titleAsc = ViewBag.Sort == "title_asc" ? "ascending" : "";
-        string createAsc = ViewBag.Sort == "created_asc" ? "ascending" : "";
+        string titleAsc = ViewBag.Sort == "title_desc" ? "descending" : "";
+        string createAsc = ViewBag.Sort == "created_asc" ? "descending" : "";
     }
         <a class="btn btn-primary sort-btn @titleAsc" href="@Url.Action("Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
             <span>Title </span>
@@ -93,7 +93,11 @@
     {
         if (item.User.user_id == (int)Session["user_id"])
         {
-            <a data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger pull-right post_thumb_delete">DELETE</a>
+                <div class="pull-right">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.post_id }, new { @class = "btn btn-primary" })
+                    <a data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger post_thumb_delete">DELETE</a>
+                </div>
+           
 }
 }
                 <div class="clearfix"></div>

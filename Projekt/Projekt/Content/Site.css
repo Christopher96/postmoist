@@ -142,6 +142,11 @@ textarea {
     text-decoration: underline;
 }
 
+#footer {
+    padding: 3em 0;
+    border-top: 1px solid #eeeeee;
+}
+
 /* -------- CLASSES -------- */
 
 
@@ -195,13 +200,13 @@ textarea {
     color: #464646;
 }
 
-.sort-btn.ascending .glyphicon-chevron-down,
+.sort-btn.descending .glyphicon-chevron-down,
 .sort-btn .glyphicon-chevron-up {
     display: none;
 }
 
 .sort-btn .glyphicon-chevron-down,
-.sort-btn.ascending .glyphicon-chevron-up {
+.sort-btn.descending .glyphicon-chevron-up {
     display: initial;
 }
 

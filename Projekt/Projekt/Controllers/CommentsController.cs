@@ -31,6 +31,7 @@ namespace Projekt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Create(int post_id, string comment)
         {
             if (ModelState.IsValid)
@@ -48,7 +49,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Posts/Delete/5
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public ActionResult Delete(int? id)
         {
             Comment comment = db.Comments.Find(id);
