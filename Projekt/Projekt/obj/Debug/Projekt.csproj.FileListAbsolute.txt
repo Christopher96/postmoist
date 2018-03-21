@@ -103,3 +103,5 @@ C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\bin\ko\System.Spatial.resour
 C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\bin\ru\System.Spatial.resources.dll
 C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\bin\zh-Hans\System.Spatial.resources.dll
 C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\bin\zh-Hant\System.Spatial.resources.dll
+C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\obj\Debug\Projekt.Properties.Resources.resources
+C:\MAMP\htdocs\plugg\dt102g\Projekt\Projekt\Projekt\obj\Debug\Projekt.csproj.GenerateResource.Cache

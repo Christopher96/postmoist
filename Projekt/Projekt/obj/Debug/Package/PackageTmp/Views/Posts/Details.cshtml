@@ -15,8 +15,8 @@
                 <h4>Are you sure you want to delete this post?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-                <a id="post_modal_delete" href="@Url.Action("Delete")" class="btn btn-danger pull-right">DELETE</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="post_modal_delete" href="@Url.Action("Delete")" class="btn btn-danger pull-right">Delete</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
         {
     <div class="pull-right">
         @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }, new { @class = "btn btn-primary" })
-        <a id="post_details_delete" data-toggle="modal" data-target="#delete_modal" data-id="@Model.post_id" class="btn btn-danger">DELETE</a>
+        <a id="post_details_delete" data-toggle="modal" data-target="#delete_modal" data-id="@Model.post_id" class="btn btn-danger">Delete</a>
     </div>
         }
     }
