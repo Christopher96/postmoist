@@ -1,0 +1,13 @@
+﻿@model Projekt.Models.Comment
+<hr/>
+@using (Html.BeginForm("Create", "Comments", new { post_id = Model.post_id }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <span class="medium">Comment on this post</span><br /><br />
+    @Html.EditorFor(model => model.comment, new { htmlAttributes = new { @class = "form-control" } })<br />
+    @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
+    <input type="submit" value="Send" class="btn btn-default" />
+</div>
+}

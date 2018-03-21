@@ -1,0 +1,131 @@
+﻿@model PagedList.IPagedList<Projekt.Models.Post>
+@using PagedList.Mvc;
+@using HtmlExtensions;
+
+@{
+    ViewBag.Title = "Index";
+}
+<form id="operations" class="form-inline">
+    <label class="control-label">Sorting: </label>
+    @{
+        string titleHide = (ViewBag.Sort != "title_asc" && ViewBag.Sort != "title_desc") ? "hidden" : "";
+        string createHide = (ViewBag.Sort != "created_asc" && ViewBag.Sort != "created_desc") ? "hidden" : "";
+        string titleAsc = ViewBag.Sort == "title_desc" ? "descending" : "";
+        string createAsc = ViewBag.Sort == "created_asc" ? "descending" : "";
+    }
+        <a class="btn btn-primary sort-btn @titleAsc" href="@Url.Action("Index", new { sort = ViewBag.SortTitle, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+            <span>Title </span>
+            <span class="glyphicon glyphicon-chevron-down @titleHide"></span>
+            <span class="glyphicon glyphicon-chevron-up @titleHide"></span>
+        </a>
+        <a class="btn btn-primary sort-btn @createAsc" href="@Url.Action("Index", new { sort = ViewBag.SortCreate, filterSearch = ViewBag.FilterSearch, filterUser = ViewBag.FilterUser })">
+            <span>Created </span>
+            <span class="glyphicon glyphicon-chevron-down @createHide"></span>
+            <span class="glyphicon glyphicon-chevron-up @createHide"></span>
+        </a>
+    <label class="control-label">Search: </label>
+    <input class="search form-control" name="search" placeholder="Search..." value="@ViewBag.FilterSearch" />
+    <button class="btn btn-primary" type="submit">Search</button>
+    <div class="pull-right">
+        @if (User.Identity.IsAuthenticated)
+    {
+        string userActive = ViewBag.FilterUser ? "active" : "";
+        <a id="show_posts" class="btn btn-primary @userActive" href="@Url.Action("Index", new { sort = ViewBag.Sort, filterSearch = ViewBag.FilterSearch, filterUser = !ViewBag.FilterUser })">
+            <span>Show only my posts </span>
+            <span class="glyphicon glyphicon-check"></span>
+            <span class="glyphicon glyphicon-unchecked"></span>
+        </a>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+
+}
+    </div>
+   
+
+</form>
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete post</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this post?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                <a id="post_modal_delete" href="@Url.Action("Delete")" class="btn btn-danger pull-right">DELETE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="post_thumbs">
+    @foreach (var item in Model)
+    {
+        <div class="post_thumb">
+            <div class="post_thumb_content">
+                <a href="@Url.Action("Details", new { id = item.post_id })">
+                    <div class="post_thumb_hover">
+                        <span>READ</span>
+                    </div>
+                </a>
+                <div class="post_thumb_title">
+                    <span>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </span>
+                </div>
+                <div class="post_thumb_image">
+                    @Html.Image(item.Image.image)
+                </div>
+                <div class="post_thumb_description">
+                    <span>  
+                        @Html.DisplayFor(modelItem => item.description)
+                    </span>
+                </div>
+            </div>
+            <div class="post_thumb_footer">
+                <div class="pull-left">
+                    <span>@Html.DisplayFor(modelItem => item.User.username)</span><br />
+                    <span>@Html.DisplayFor(modelItem => item.created)</span>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+    {
+        if (item.User.user_id == (int)Session["user_id"])
+        {
+                <div class="pull-right">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.post_id }, new { @class = "btn btn-primary" })
+                    <a data-toggle="modal" data-target="#delete_modal" data-id="@item.post_id" class="btn btn-danger post_thumb_delete">DELETE</a>
+                </div>
+           
+}
+}
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function() {
+        var modal_url = $("#post_modal_delete").attr("href");
+        $(".post_thumb_delete").each(function () {
+            $(this).click(function () {
+                $("#post_modal_delete").attr("href", modal_url + "/" + $(this).attr("data-id"));
+            });
+        })
+    });
+</script>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount;
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        page,
+        sort = ViewBag.Sort,
+        filter = ViewBag.Filter
+    }
+    ))

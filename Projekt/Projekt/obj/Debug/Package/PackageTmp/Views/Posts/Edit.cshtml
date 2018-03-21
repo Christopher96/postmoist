@@ -1,0 +1,31 @@
+﻿@model Projekt.Models.Post
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<span class="large title">Edit post</span>
+<hr />
+
+@using (Html.BeginForm("Edit", "Posts"))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    @Html.HiddenFor(model => Model.post_id)
+    @Html.HiddenFor(model => Model.user_id)
+    @Html.HiddenFor(model => Model.image_id)
+    @Html.HiddenFor(model => Model.created)
+
+    <span class="control-label">Title</span>
+    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })<br />
+    <span class="control-label">Description</span>
+    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })<br />
+    <input type="submit" value="Save" class="btn btn-default" />
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

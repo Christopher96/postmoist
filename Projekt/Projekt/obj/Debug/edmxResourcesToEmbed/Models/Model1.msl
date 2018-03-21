@@ -15,9 +15,9 @@
     <EntitySetMapping Name="Images">
       <EntityTypeMapping TypeName="ProjectDBModel.Image">
         <MappingFragment StoreEntitySet="Image">
-          <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="image_id" ColumnName="image_id" />
           <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="image" ColumnName="image" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -33,13 +33,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="ProjectDBModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="ProjectDBModel.User">
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password_hash" ColumnName="password_hash" />
-          <ScalarProperty Name="role" ColumnName="role" />
           <ScalarProperty Name="created" ColumnName="created" />
         </MappingFragment>
       </EntityTypeMapping>

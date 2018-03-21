@@ -47,7 +47,7 @@
     <PublishDatabaseSettings>
       <Objects>
         <ObjectGroup Name="ProjectDBEntities-Deployment" Order="1">
-          <Destination Path="Server=tcp:projectdt102g.database.windows.net,1433%3bInitial Catalog=projectdb%3bPersist Security Info=False%3bUser ID=syphez%3bPassword=0M3lagow6n%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b" />
+          <Destination Path="Data Source=projectdt102g.database.windows.net%3bInitial Catalog=projectdb%3bIntegrated Security=False%3bUser ID=syphez%3bPassword=%2a%2a%2a%2a%2a%2a%2a%2a%3bConnect Timeout=60%3bEncrypt=True%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" />
           <Object Type="DbFullSql">
             <PreSource Path="Data Source=%28localdb%29\MSSQLLocalDB%3bInitial Catalog=ProjectDB%3bIntegrated Security=True%3bMultipleActiveResultSets=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
             <Source Path="obj\Release\AutoScripts\ProjectDBEntities-Deployment_SchemaAndData.sql" Transacted="True" />
@@ -282,6 +282,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\projektdt102g - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\projektdt102g - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

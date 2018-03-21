@@ -1,0 +1,23 @@
+﻿@model Projekt.Models.UserRegister
+
+@{
+    ViewBag.Title = "Register";
+}
+<span class="large title">Register</span>
+<hr/>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <span class="control-label">Username</span>
+    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })<br />
+    <span class="control-label">Password</span>
+    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })<br />
+    <span class="control-label">Confirm password</span>
+    @Html.EditorFor(model => model.confirm_password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+    @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })<br />
+    <input type="submit" value="Register" class="btn btn-default" /><br />
+    @Html.ValidationMessage(String.Empty, new { @class = "text-danger" })
+}
