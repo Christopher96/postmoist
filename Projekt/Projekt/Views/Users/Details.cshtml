@@ -39,3 +39,17 @@
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<script>
+    $(document).ready(function() {
+        function addMeta(prop, content) {
+            $("head").append("<meta property='og:" + prop + "' content='"+ content + "' />");
+        }
+
+        addMeta("title", "@Model.username");
+        addMeta("description", "@Model.Role");
+        addMeta("type", "user.account");
+        addMeta("url", window.location.href);
+    });
+</script>

@@ -59,6 +59,14 @@ namespace Projekt.Controllers
             ViewBag.SortCreate = sort == "created_desc" ? "created_asc" : "created_desc";
             ViewBag.Sort = sort;
 
+            foreach(Post post in posts)
+            {
+                if(post.description.Length > 100)
+                {
+                    post.description = post.description.Substring(0, 100) + "...";
+                }
+            }
+
             switch (sort)
             {
                 case "title_desc":

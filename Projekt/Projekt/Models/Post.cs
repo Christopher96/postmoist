@@ -29,7 +29,7 @@ namespace Projekt.Models
         public string title { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [Required(ErrorMessage = "Description is required"), StringLength(50, MinimumLength = 10, ErrorMessage = "The description must be between 10 and 50 characters.")]
+        [Required(ErrorMessage = "Description is required"), StringLength(1000, MinimumLength = 10, ErrorMessage = "The description must be between 10 and 1000 characters.")]
         public string description { get; set; }
 
         public System.DateTime created { get; set; }

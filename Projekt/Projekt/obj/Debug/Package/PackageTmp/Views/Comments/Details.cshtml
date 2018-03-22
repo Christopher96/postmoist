@@ -10,7 +10,7 @@
     {
         if (Model.user_id == (int)Session["user_id"])
         {
-            <a href="@Url.Action("Delete", "Comments", new { id = Model.comment_id })" class="btn btn-danger pull-right">DELETE</a>
+            <a href="@Url.Action("Delete", "Comments", new { id = Model.comment_id })" class="btn btn-danger pull-right">Delete</a>
     }
 }
     </div>

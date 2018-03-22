@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = Model.title;
 }
-<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,6 +38,7 @@
     <div class="post_details_content row">
         <div class="post_details_image col-md-3">
             @Html.Image(Model.Image.image)
+            <div class="post_details_image_title"><i>@Model.Image.title</i></div>
         </div>
         <div class="post_details_text col-md-9 row">
             <div class="post_details_description">
@@ -59,6 +60,16 @@
         $("#post_details_delete").click(function () {
             $("#post_modal_delete").attr("href", modal_url + "/" + $(this).attr("data-id"));
         });
+
+        function addMeta(prop, content) {
+            $("head").append("<meta property='og:" + prop + "' content='"+ content + "' />");
+        }
+
+        addMeta("title", "@Model.title");
+        addMeta("description", "@Model.description");
+        addMeta("image", $(".post_details_image img").attr("src"));
+        addMeta("type", "user.post");
+        addMeta("url", window.location.href);
     });
 </script>
 

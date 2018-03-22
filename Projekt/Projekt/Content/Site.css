@@ -53,8 +53,7 @@ form select {
     height: auto !important;
 }
 
-form:not(#operations),
-table {
+form:not(#operations) {
     max-width: 50em;
 }
 
@@ -82,9 +81,16 @@ textarea {
 /* -------- HEADER/FOOTER -------- */
 
 #header {
+    cursor: pointer;
     position: relative;
     background-color: rgb(66, 66, 66);
     height: 20em;
+}
+
+#header_click {
+    position: absolute;
+    width:100%;
+    height:100%;
 }
 
 #header,
@@ -335,8 +341,13 @@ textarea {
     width: 100%;
 }
 
-.post_details_text {
-    position: relative;
+.post_details_image_title {
+    width: calc(100% - 2.2em);
+    color: white;
+    position:absolute;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    padding: 1em;
 }
 
 .post_details_description {

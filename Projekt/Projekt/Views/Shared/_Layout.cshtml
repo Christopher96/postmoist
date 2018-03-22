@@ -10,39 +10,37 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <a href="@Url.Action("Index", "Posts")">
-        <header id="header">
-            <img id="stripes" src='~/images/stripes.png' alt="stripes" />
-            <div id="site_logo">
-                <img src="~/images/logo.png" alt="logo" />
-            </div>
+    <header id="header">
+        <img id="stripes" src='~/images/stripes.png' alt="stripes" />
+        <div id="site_logo">
+            <img src="~/images/logo.png" alt="logo" />
+        </div>
 
-            <div id="profile_menu" class="dropdown">
-                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <div class="profile_select">
-                        <img src="~/images/profile.png" alt="profile" />
-                    </div>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="dropdown-header">Logged in as @HttpContext.Current.User.Identity.Name</li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="@Url.Action("Index", "Users")">Users</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="@Url.Action("Logout", "Users")">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li class="dropdown-header">Not logged in</li>
-                        <li role="separator" class="divider"></li>
-                        <li>@Html.ActionLink("Register", "Register", "Users")</li>
-                        <li>@Html.ActionLink("Login", "Login", "Users")</li>
-                    }          
-                </ul>
-            </div>
-        </header>
-    </a>
+        <div id="profile_menu" class="dropdown">
+            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <div class="profile_select">
+                    <img src="~/images/profile.png" alt="profile" />
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown-header">Logged in as @HttpContext.Current.User.Identity.Name</li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="@Url.Action("Index", "Users")">Users</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="@Url.Action("Logout", "Users")">Logout</a></li>
+                }
+                else
+                {
+                    <li class="dropdown-header">Not logged in</li>
+                    <li role="separator" class="divider"></li>
+                    <li>@Html.ActionLink("Register", "Register", "Users")</li>
+                    <li>@Html.ActionLink("Login", "Login", "Users")</li>
+                }          
+            </ul>
+        </div>
+    </header>
     <div id="content" class="body-content">
         @RenderBody()
         <footer id="footer">
@@ -50,5 +48,19 @@
         </footer>
     </div>
     @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            $("#profile_menu a").click(function (e) {
+                e.stopPropagation();
+                $("#profile_menu .dropdown-menu").toggle();
+            })
+            $("header").click(function () {
+                window.location.href = "@Url.Action("Index", "Posts")";
+            });
+        });
+    </script>
 </body>
 </html>
+
+
