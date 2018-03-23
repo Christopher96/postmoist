@@ -26,7 +26,7 @@
     <b class="large title">@Html.DisplayFor(model => model.title)</b>
     @if (User.Identity.IsAuthenticated)
     {
-        if (Model.user_id == (int)Session["user_id"])
+        if (Model.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
         {
     <div class="pull-right">
         @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }, new { @class = "btn btn-primary" })

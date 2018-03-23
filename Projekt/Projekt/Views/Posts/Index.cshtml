@@ -91,7 +91,7 @@
                 </div>
                 @if (User.Identity.IsAuthenticated)
     {
-        if (item.User.user_id == (int)Session["user_id"])
+        if (item.User.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
         {
                 <div class="pull-right">
                     @Html.ActionLink("Edit", "Edit", new { id = item.post_id }, new { @class = "btn btn-primary" })

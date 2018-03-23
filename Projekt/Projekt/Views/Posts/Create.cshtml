@@ -11,14 +11,14 @@
 {
     @Html.AntiForgeryToken()
 <div class="form-horizontal">
-    <span class="control-label">Title</span>
+    @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label" })
     @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })<br />
-    <span class="control-label">Description</span>
+    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
     @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })<br />
-    <span class="control-label">Post Image</span>
-    <input type="file" class="form-control" name="ImageData" />
+    <label for="file" class="control-label">Post Image</label>
+    <input id="file" type="file" class="form-control" name="ImageData" />
     @Html.ValidationMessage("ImageData", new { @class = "text-danger" })<br />
     <input type="submit" value="Create" class="btn btn-default" />
 </div>

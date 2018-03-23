@@ -195,7 +195,15 @@ namespace Projekt.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+            if (User.Identity.IsAuthenticated)
+            {
+                if (post.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
+                {
+                    return View(post);
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         // POST: Posts/Edit/5
@@ -206,12 +214,19 @@ namespace Projekt.Controllers
         [Authorize(Roles = "Admin, Normal")]
         public ActionResult Edit(Post post)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details", new { id = post.post_id });
+                if (post.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(post).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Details", new { id = post.post_id });
+                    }
+                }
             }
+             
             return View(post);
         }
 
@@ -220,13 +235,21 @@ namespace Projekt.Controllers
         public ActionResult Delete(int? id)
         {
             Post post = db.Posts.Find(id);
-            if(post.user_id == (int)Session["user_id"])
+
+            if(post != null)
             {
-                db.Images.Remove(post.Image);
-                db.Comments.RemoveRange(post.Comments);
-                db.Posts.Remove(post);
-                db.SaveChanges();
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (post.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
+                    {
+                        db.Images.Remove(post.Image);
+                        db.Comments.RemoveRange(post.Comments);
+                        db.Posts.Remove(post);
+                        db.SaveChanges();
+                    }
+                }
             }
+            
             
             return RedirectToAction("Index");
         }

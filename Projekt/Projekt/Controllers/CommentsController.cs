@@ -53,15 +53,20 @@ namespace Projekt.Controllers
         public ActionResult Delete(int? id)
         {
             Comment comment = db.Comments.Find(id);
-            int post_id = comment.post_id;
 
-            if (comment.user_id == (int)Session["user_id"])
+            if(comment != null)
             {
-                db.Comments.Remove(comment);
-                db.SaveChanges();
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (comment.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
+                    {
+                        db.Comments.Remove(comment);
+                        db.SaveChanges();
+                    }
+                }
             }
 
-            return RedirectToAction("Details", "Posts", new { id = post_id });
+            return RedirectToAction("Details", "Posts", new { id = comment.post_id });
         }
 
         protected override void Dispose(bool disposing)

@@ -8,6 +8,7 @@ namespace Projekt.Models
 {
     public class UserRegister : UserLogin
     {
+        [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Confirm password is required")]
         [Compare("password", ErrorMessage = "Password and Confirmation Password must match.")]

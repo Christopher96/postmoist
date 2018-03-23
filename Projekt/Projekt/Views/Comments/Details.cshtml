@@ -8,7 +8,7 @@
         <span>@Html.DisplayFor(model => model.User.username)</span>&emsp;<i>@Html.DisplayFor(model => model.created)</i>
         @if (User.Identity.IsAuthenticated)
     {
-        if (Model.user_id == (int)Session["user_id"])
+        if (Model.user_id == (int)Session["user_id"] || (string)Session["role"] == "Admin")
         {
             <a href="@Url.Action("Delete", "Comments", new { id = Model.comment_id })" class="btn btn-danger pull-right">Delete</a>
     }

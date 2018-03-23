@@ -8,6 +8,7 @@ namespace Projekt.Models
 {
     public class UserLogin : User
     {
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
